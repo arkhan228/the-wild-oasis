@@ -1,5 +1,7 @@
 # Redirect user from app layout to main page when they are not authenticated
 
+/dashboard /
+/login /
 /bookings /
 /bookings/:status /
 /bookings/:sortBy /
