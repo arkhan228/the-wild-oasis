@@ -1,0 +1,11 @@
+# Redirect user from app layout to main page when they are not authenticated
+
+/bookings /
+/bookings/:status /
+/bookings/:sortBy /
+/cabins /
+/cabins/:discount /
+/cabins/:sortBy /
+/users /
+/account /
+/settings /
