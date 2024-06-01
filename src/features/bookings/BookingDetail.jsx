@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 
 import BookingDataBox from './BookingDataBox';
 import Row from '../../ui/Row';
@@ -8,20 +7,17 @@ import Tag from '../../ui/Tag';
 import ButtonGroup from '../../ui/ButtonGroup';
 import Button from '../../ui/Button';
 import ButtonText from '../../ui/ButtonText';
-
-import { useMoveBack } from '../../hooks/useMoveBack';
-import { useBooking } from './useBooking';
 import Spinner from '../../ui/Spinner';
 import Modal from '../../ui/Modal';
-import CheckoutBooking from '../check-in-out/CheckoutBooking';
 import ConfirmDelete from '../../ui/ConfirmDelete';
-import { useDeleteBooking } from './useDeleteBooking';
+import HeadingGroup from '../../ui/HeadingGroup';
 
-const HeadingGroup = styled.div`
-  display: flex;
-  gap: 2.4rem;
-  align-items: center;
-`;
+import CheckoutBooking from '../check-in-out/CheckoutBooking';
+
+import { useMoveBack } from '../../hooks/useMoveBack';
+import { useDeleteBooking } from './useDeleteBooking';
+import { useBooking } from './useBooking';
+import { statusToTagName } from '../../utils/helpers';
 
 function BookingDetail() {
   const { booking = {}, isLoading } = useBooking();
@@ -32,12 +28,6 @@ function BookingDetail() {
 
   const { status, id: bookingId } = booking;
 
-  const statusToTagName = {
-    unconfirmed: 'blue',
-    'checked-in': 'green',
-    'checked-out': 'silver',
-  };
-
   if (isLoading) return <Spinner />;
 
   return (
@@ -45,7 +35,7 @@ function BookingDetail() {
       <Row type='horizontal'>
         <HeadingGroup>
           <Heading as='h1'>Booking #{bookingId}</Heading>
-          <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
+          <Tag type={statusToTagName(status)}>{status.replace('-', ' ')}</Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>

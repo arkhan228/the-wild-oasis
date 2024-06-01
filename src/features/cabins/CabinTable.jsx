@@ -4,16 +4,41 @@ import { useCabins } from './useCabins';
 import Table from '../../ui/Table';
 import Menus from '../../ui/Menus';
 import Empty from '../../ui/Empty';
+import useUpdateDiscounts from './useUpdateDiscounts';
+import { useLocalStorageState } from '../../hooks/useLocalStorageState';
+import { useEffect } from 'react';
 
 /**
- * Generates a table displaying cabin information fetched from the API.
+ * Generates a table displaying cabin information fetched from the API and updates the discount for each cabin every day.
  *
  * @return {JSX.Element} The JSX element representing the cabin table.
  */
+
 function CabinTable() {
   const { cabins, isLoading } = useCabins();
+  const [discountDate, setDiscountDate] = useLocalStorageState(
+    new Date().getDate() - 1,
+    'discountDate'
+  );
+  const { updateDiscounts, isUpdating } = useUpdateDiscounts();
 
-  if (isLoading) return <Spinner />;
+  useEffect(() => {
+    if (!isLoading && new Date().getDate() !== discountDate) {
+      const discountedCabins = cabins.map(c => {
+        const discount =
+          Math.random() < 0.5 ? 0 : (Math.trunc(Math.random() * 3) + 1) * 5;
+        console.log(discount);
+        return {
+          id: c.id,
+          discount: Math.round((c.regularPrice * discount) / 100_000) * 1000,
+        };
+      });
+      updateDiscounts(discountedCabins);
+      setDiscountDate(new Date().getDate());
+    }
+  }, [discountDate, setDiscountDate, updateDiscounts, cabins, isLoading]);
+
+  if (isLoading || isUpdating) return <Spinner />;
 
   if (!cabins.length) return <Empty resource='cabins' />;
 

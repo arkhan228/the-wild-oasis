@@ -88,10 +88,12 @@ function Row({ children }) {
     </StyledRow>
   );
 }
-function Body({ data, render }) {
-  if (!data.length)
+function Body({ data, type = 'cabin', render }) {
+  if (!data?.length)
     return (
-      <Empty>No cabin available! Please start by creating a new cabin</Empty>
+      <Empty>
+        No {type} available! Please start by creating a new {type}
+      </Empty>
     );
 
   return <StyledBody>{data.map(render)}</StyledBody>;

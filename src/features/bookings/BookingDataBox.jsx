@@ -5,6 +5,7 @@ import {
   HiOutlineCheckCircle,
   HiOutlineCurrencyRupee,
   HiOutlineHomeModern,
+  HiOutlineUsers,
 } from 'react-icons/hi2';
 
 import DataItem from '../../ui/DataItem';
@@ -102,7 +103,7 @@ const Footer = styled.footer`
 `;
 
 // A purely presentational component
-function BookingDataBox({ booking }) {
+function BookingDataBox({ booking, children }) {
   const {
     created_at,
     startDate,
@@ -115,7 +116,9 @@ function BookingDataBox({ booking }) {
     hasBreakfast,
     observations,
     isPaid,
-    guests: { fullName: guestName, email, country, countryFlag, nationalID },
+    guests: { fullName: guestName, email, country, countryFlag, nationalID } = {
+      fullName: '',
+    },
     cabins: { name: cabinName },
   } = booking;
 
@@ -139,16 +142,24 @@ function BookingDataBox({ booking }) {
       </Header>
 
       <Section>
-        <Guest>
-          {countryFlag && <Flag src={countryFlag} alt={`Flag of ${country}`} />}
-          <p>
-            {guestName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ''}
-          </p>
-          <span>&bull;</span>
-          <p>{email}</p>
-          <span>&bull;</span>
-          <p>National ID {nationalID}</p>
-        </Guest>
+        {guestName ? (
+          <Guest>
+            {countryFlag && (
+              <Flag src={countryFlag} alt={`Flag of ${country}`} />
+            )}
+            <p>
+              {guestName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ''}
+            </p>
+            <span>&bull;</span>
+            <p>{email}</p>
+            <span>&bull;</span>
+            <p>National ID {nationalID}</p>
+          </Guest>
+        ) : (
+          <DataItem icon={<HiOutlineUsers />} label='Guests'>
+            {numGuests}
+          </DataItem>
+        )}
 
         {observations && (
           <DataItem
@@ -180,6 +191,8 @@ function BookingDataBox({ booking }) {
       <Footer>
         <p>Booked {format(new Date(created_at), 'EEE, MMM dd yyyy, p')}</p>
       </Footer>
+
+      {children}
     </StyledBookingDataBox>
   );
 }

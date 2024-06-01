@@ -1,4 +1,9 @@
-import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2';
+import {
+  HiOutlinePlus,
+  HiPencil,
+  HiSquare2Stack,
+  HiTrash,
+} from 'react-icons/hi2';
 import styled from 'styled-components';
 
 import { useDeleteCabin } from './useDeleteCabin';
@@ -10,6 +15,7 @@ import Menus from '../../ui/Menus';
 import Modal from '../../ui/Modal';
 import CreateCabinForm from './CreateCabinForm';
 import ConfirmDelete from '../../ui/ConfirmDelete';
+import CreateBookingForm from '../bookings/CreateBookingForm';
 
 const Img = styled.img`
   display: block;
@@ -45,7 +51,7 @@ const Discount = styled.div`
 `;
 
 /**
- * Renders a row for a cabin with details and edit/delete buttons.
+ * Renders a row for a cabin with details and an actions menu.
  * @param {object} cabin - The cabin object containing details like id, name, capacity, price, discount, image, and description.
  * @return {JSX.Element} A JSX element representing the cabin row.
  */
@@ -97,9 +103,19 @@ function CabinRow({ cabin }) {
         <Menus.Menu>
           <Menus.Toggle id={cabinId} />
           <Menus.List id={cabinId}>
+            <Modal.Open
+              opens='add-booking'
+              renderButton={openFn => (
+                <Menus.Button icon={<HiOutlinePlus />} onClick={openFn}>
+                  Create booking
+                </Menus.Button>
+              )}
+            />
+
             <Menus.Button
               icon={<HiSquare2Stack />}
-              onClick={handleDuplicateCabin}>
+              onClick={handleDuplicateCabin}
+            >
               Duplicate
             </Menus.Button>
 
@@ -121,6 +137,16 @@ function CabinRow({ cabin }) {
               )}
             />
           </Menus.List>
+
+          <Modal.Window
+            name='add-booking'
+            renderContent={closeFn => (
+              <CreateBookingForm
+                onCloseModal={closeFn}
+                selectedCabinId={cabinId}
+              />
+            )}
+          />
 
           <Modal.Window
             name='edit-cabin'

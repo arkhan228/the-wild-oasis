@@ -8,7 +8,7 @@ function AddBooking() {
       <Modal.Open
         opens='booking-form'
         renderButton={openFn => (
-          <Button onClick={openFn}>Create new booking</Button>
+          <Button onClick={openFn}>Add new booking</Button>
         )}
       />
       <Modal.Window

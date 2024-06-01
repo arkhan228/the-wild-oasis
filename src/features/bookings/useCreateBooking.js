@@ -13,8 +13,7 @@ export function useCreateBooking() {
     mutationFn: createBookingApi,
     mutationKey: ['booking'],
 
-    onSuccess: data => {
-      console.log(data);
+    onSuccess: () => {
       toast.success('Booking successfully created!');
 
       queryClient.invalidateQueries({ queryKey: ['bookings'] });

@@ -49,12 +49,13 @@ const Error = styled.span`
  * @param {string} props.label - Label text for the form row.
  * @param {string} props.error - Error message for the form row.
  * @param {JSX.Element} props.children - Children component for the form row.
+ * @param {string} [props.id] - Optional ID for the form row.
  * @returns {JSX.Element} - Rendered form row component.
  */
-function FormRow({ label, error, children }) {
+function FormRow({ label, error, children, id = null }) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={children.props?.id}>{label}</Label>}
+      {label && <Label htmlFor={children.props?.id || id}>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>

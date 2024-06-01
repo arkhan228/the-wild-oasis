@@ -3,6 +3,7 @@
 /dashboard /
 /login /
 /bookings /
+/bookings/:id /
 /bookings/:status /
 /bookings/:sortBy /
 /cabins /
@@ -11,3 +12,4 @@
 /users /
 /account /
 /settings /
+/chekin/:id /

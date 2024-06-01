@@ -17,7 +17,9 @@ const StyledText = styled.p`
 
 const Box = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 1.2rem;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 function CheckoutBooking({ onCloseModal, bookingId }) {

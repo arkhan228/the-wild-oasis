@@ -137,3 +137,17 @@ export async function getCabin(id) {
 
   return data;
 }
+
+export async function updateDiscounts(updatedData) {
+  const { data, error } = await supabase
+    .from('cabins')
+    .upsert(updatedData, { onConflict: 'id' })
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Discounts could not be updated');
+  }
+
+  return data;
+}

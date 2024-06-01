@@ -135,26 +135,26 @@ function BookingRow({
               />
             )}
           </Menus.List>
+
+          <Modal.Window
+            name='checkout-booking'
+            renderContent={closeFn => (
+              <CheckoutBooking onCloseModal={closeFn} bookingId={bookingId} />
+            )}
+          />
+
+          <Modal.Window
+            name='delete-booking'
+            renderContent={closeFn => (
+              <ConfirmDelete
+                resourceName='booking'
+                onConfirm={() => deleteBooking(bookingId)}
+                disabled={isDeleting}
+                onCloseModal={closeFn}
+              />
+            )}
+          />
         </Menus.Menu>
-
-        <Modal.Window
-          name='checkout-booking'
-          renderContent={closeFn => (
-            <CheckoutBooking onCloseModal={closeFn} bookingId={bookingId} />
-          )}
-        />
-
-        <Modal.Window
-          name='delete-booking'
-          renderContent={closeFn => (
-            <ConfirmDelete
-              resourceName={`booking #${bookingId}`}
-              onConfirm={() => deleteBooking(bookingId)}
-              disabled={isDeleting}
-              onCloseModal={closeFn}
-            />
-          )}
-        />
       </Modal>
     </Table.Row>
   );

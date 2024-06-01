@@ -4,6 +4,12 @@ import { formatDistance, parseISO, differenceInDays } from 'date-fns';
 export const subtractDates = (dateStr1, dateStr2) =>
   differenceInDays(parseISO(String(dateStr1)), parseISO(String(dateStr2)));
 
+/**
+ * Formats the distance of a given date from the current date.
+ *
+ * @param {string} dateStr - The date to calculate the distance from. Must be in ISO format.
+ * @return {string} The formatted distance string.
+ */
 export const formatDistanceFromNow = dateStr =>
   formatDistance(parseISO(dateStr), new Date(), {
     addSuffix: true,
@@ -59,4 +65,14 @@ export function setLocalHoursToUTCOffset(date) {
   const minutes = Math.abs(offset) % 60;
   date?.setHours(hours, minutes);
   return date;
+}
+
+export function statusToTagName(status) {
+  const statusToTagName = {
+    unconfirmed: 'blue',
+    'checked-in': 'green',
+    'checked-out': 'silver',
+  };
+
+  return statusToTagName[status];
 }
