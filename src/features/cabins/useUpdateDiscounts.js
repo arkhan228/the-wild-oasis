@@ -8,8 +8,7 @@ function useUpdateDiscounts() {
   const { mutate: updateDiscounts, isLoading: isUpdating } = useMutation({
     mutationFn: updateDiscountsApi,
 
-    onSuccess: data => {
-      console.log(data);
+    onSuccess: () => {
       toast.success('Discount successfully updated!');
 
       queryClient.invalidateQueries({

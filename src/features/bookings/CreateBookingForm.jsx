@@ -4,7 +4,11 @@ import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ReactSelect from 'react-select';
 import { addDays, eachDayOfInterval, format, isToday } from 'date-fns';
-import { formatCurrency, subtractDates } from '../../utils/helpers';
+import {
+  formatCurrency,
+  setLocalHoursToUTCOffset,
+  subtractDates,
+} from '../../utils/helpers';
 
 import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
@@ -125,8 +129,8 @@ function CreateBookingForm({
         hasBreakfast,
         isPaid,
         status: status ? 'checked-in' : 'unconfirmed',
-        startDate,
-        endDate,
+        startDate: setLocalHoursToUTCOffset(startDate),
+        endDate: setLocalHoursToUTCOffset(endDate),
       },
       {
         onSettled: () => onCloseModal?.(),

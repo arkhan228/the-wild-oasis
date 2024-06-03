@@ -4,7 +4,7 @@ Enjoy luxury life in wooden cabins in a hotel in the wild with a partner, friend
 
 ## Sign-up users
 
-Sign-up hotel employees as users of the app with email confirmation. Update profile pic or name of the users.
+Sign-up hotel employees as users of the app with email confirmation. Update profile pic, name or password of the users.
 
 ## Dashboard
 
@@ -24,4 +24,4 @@ Users of the app can check-in or out the guests in the cabins.
 
 ## Create new guests
 
-Coming soon!
+Create, edit or delete guests, see guest details including all their bookings, and make a new booking for the guests.

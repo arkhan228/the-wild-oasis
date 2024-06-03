@@ -7,6 +7,7 @@ import Empty from '../../ui/Empty';
 import useUpdateDiscounts from './useUpdateDiscounts';
 import { useLocalStorageState } from '../../hooks/useLocalStorageState';
 import { useEffect } from 'react';
+import { GET_PERCENTAGE, ROUND_T0_THOUSAND } from '../../utils/constants';
 
 /**
  * Generates a table displaying cabin information fetched from the API and updates the discount for each cabin every day.
@@ -27,10 +28,12 @@ function CabinTable() {
       const discountedCabins = cabins.map(c => {
         const discount =
           Math.random() < 0.5 ? 0 : (Math.trunc(Math.random() * 3) + 1) * 5;
-        console.log(discount);
         return {
           id: c.id,
-          discount: Math.round((c.regularPrice * discount) / 100_000) * 1000,
+          discount:
+            Math.round(
+              (c.regularPrice * discount) / (GET_PERCENTAGE * ROUND_T0_THOUSAND)
+            ) * ROUND_T0_THOUSAND,
         };
       });
       updateDiscounts(discountedCabins);
